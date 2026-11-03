@@ -68,7 +68,7 @@ public class Main {
                 default:
                     System.out.println("Lựa chọn không hợp lệ! Vui lòng chọn từ 0 đến 3.");
             }
-        } while (chon != 0); 
+        } while (chon != 0);
         sc.close();
     }
 }
