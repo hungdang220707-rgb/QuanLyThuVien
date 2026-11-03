@@ -8,7 +8,6 @@ public class Main {
         int tongSoLuong = 0;
         double tongGiaTri = 0;
         String duLieuSach = "";
-
         do {
             System.out.println("\n========== MENU THƯ VIỆN ==========");
             System.out.println("1. Nhập n sách (Bài 1)");
