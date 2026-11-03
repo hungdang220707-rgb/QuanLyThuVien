@@ -2,84 +2,79 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("=== NHẬP THÔNG TIN SÁCH ===");
-        System.out.print("Nhập mã sách: ");
-        String maSach = scanner.nextLine();
-        System.out.print("Nhập tên sách: ");
-        String tenSach = scanner.nextLine();
-        System.out.print("Nhập tác giả: ");
-        String tacGia = scanner.nextLine();
-        System.out.print("Nhập năm xuất bản: ");
-        int namXuatBan = scanner.nextInt();
-        System.out.print("Nhập đơn giá: ");
-        double donGia = scanner.nextDouble();
-        System.out.print("Nhập số lượng: ");
-        int soLuong = scanner.nextInt();
-        System.out.println("\n--- CHỌN LOẠI SÁCH ---");
-        System.out.println("1. Sách giáo khoa");
-        System.out.println("2. Sách tham khảo");
-        System.out.println("3. Sách chuyên ngành");
-        System.out.println("4. Sách khác");
-        System.out.print("Nhập lựa chọn của bạn (1-4): ");
-        int chonLoai = scanner.nextInt();
-        String tenLoaiSach = "";
-        switch (chonLoai) {
-            case 1:
-                tenLoaiSach = "Sách giáo khoa";
-                break;
-            case 2:
-                tenLoaiSach = "Sách tham khảo";
-                break;
-            case 3:
-                tenLoaiSach = "Sách chuyên ngành";
-                break;
-            case 4:
-                tenLoaiSach = "Sách khác";
-                break;
-            default:
-                tenLoaiSach = "Không xác định";
-        }
-        boolean hopLe = (donGia > 0) && (soLuong >= 0) && (namXuatBan >= 1000 && namXuatBan <= 2026);
-        double thanhTien = donGia * soLuong;
-        double phiVanChuyen = thanhTien * 0.05;
-        double tongTienNhap = thanhTien + phiVanChuyen;
-        String phanLoaiGia = "";
-        if (donGia < 50000) {
-            phanLoaiGia = "Sách giá thấp";
-        } else if (donGia <= 100000) {
-            phanLoaiGia = "Sách giá trung bình";
-        } else if (donGia <= 200000) {
-            phanLoaiGia = "Sách giá cao";
-        } else {
-            phanLoaiGia = "Sách giá đặc biệt";
-        }
-        String phanLoaiTonKho = "";
-        if (soLuong == 0) {
-            phanLoaiTonKho = "Hết sách";
-        } else if (soLuong <= 5) {
-            phanLoaiTonKho = "Sắp hết";
-        } else if (soLuong <= 20) {
-            phanLoaiTonKho = "Còn ít";
-        } else {
-            phanLoaiTonKho = "Còn nhiều";
-        }
-        System.out.println("             THÔNG TIN NHẬP KHO               ");
-        System.out.println("Mã sách: " + maSach);
-        System.out.println("Tên sách: " + tenSach);
-        System.out.println("Tác giả: " + tacGia);
-        System.out.println("Loại sách: " + tenLoaiSach);
-        System.out.println("Năm xuất bản: " + namXuatBan);
-        System.out.printf("Đơn giá: %,.2f VNĐ (%s)\n", donGia, phanLoaiGia);
-        System.out.println("Số lượng: " + soLuong + " (" + phanLoaiTonKho + ")");
-        System.out.printf("Thành tiền: %,.2f VNĐ\n", thanhTien);
-        System.out.printf("Phí vận chuyển (5%%): %,.2f VNĐ\n", phiVanChuyen);
-        System.out.printf("TỔNG TIỀN NHẬP: %,.2f VNĐ\n", tongTienNhap);
-        if (hopLe) {
-            System.out.println("Trạng thái: Thông tin sách HỢP LỆ.");
-        } else {
-            System.out.println("Trạng thái: CẢNH BÁO - Thông tin sách KHÔNG HỢP LỆ (Năm xuất bản phải từ 1000 đến 2026, đơn giá > 0, số lượng >= 0)!");
-        }
-        scanner.close();
+        Scanner sc = new Scanner(System.in);
+        int chon = -1;
+
+        int tongSoLuong = 0;
+        double tongGiaTri = 0;
+        String duLieuSach = "";
+
+        do {
+            System.out.println("\n========== MENU THƯ VIỆN ==========");
+            System.out.println("1. Nhập n sách (Bài 1)");
+            System.out.println("2. Tính tổng số lượng và tổng giá trị (Bài 2)");
+            System.out.println("3. Tìm sách theo mã (Bài 4)");
+            System.out.println("0. Thoát (Bài 3)");
+            System.out.print("Chọn chức năng: ");
+
+            // Đọc toàn bộ dòng để tránh trôi lệnh và lỗi bộ đệm
+            try {
+                chon = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException e) {
+                chon = -1; // Nếu người dùng nhập chữ cái, gán giá trị không hợp lệ
+            }
+
+            switch (chon) {
+                case 1:
+                    System.out.print("Nhập số lượng sách (n): ");
+                    int n = Integer.parseInt(sc.nextLine());
+
+                    for (int i = 1; i <= n; i++) {
+                        System.out.println("--- Nhập sách thứ " + i + " ---");
+                        System.out.print("Mã sách: ");
+                        String ma = sc.nextLine();
+                        System.out.print("Tên sách: ");
+                        String ten = sc.nextLine();
+                        System.out.print("Số lượng: ");
+                        int sl = Integer.parseInt(sc.nextLine());
+                        System.out.print("Giá: ");
+                        double gia = Double.parseDouble(sc.nextLine());
+
+                        // Cộng dồn trực tiếp
+                        tongSoLuong += sl;
+                        tongGiaTri += (sl * gia);
+
+                        // Nối chuỗi để lưu thông tin phục vụ chức năng tìm kiếm
+                        duLieuSach += "Mã: " + ma + " | Tên: " + ten + " | SL: " + sl + " | Giá: " + gia + "\n";
+                    }
+                    break;
+
+                case 2:
+                    System.out.println("Tổng số lượng sách: " + tongSoLuong);
+                    System.out.println("Tổng giá trị sách: " + tongGiaTri);
+                    break;
+
+                case 3:
+                    System.out.print("Nhập mã sách cần tìm: ");
+                    String maTim = sc.nextLine();
+
+                    if (duLieuSach.contains("Mã: " + maTim + " |")) {
+                        System.out.println("-> TÌM THẤY! Dữ liệu khớp trong hệ thống:\n");
+                        System.out.print(duLieuSach);
+                    } else {
+                        System.out.println("-> Không tìm thấy mã sách: " + maTim);
+                    }
+                    break;
+
+                case 0:
+                    System.out.println("Đang thoát chương trình. Tạm biệt!");
+                    break;
+
+                default:
+                    System.out.println("Lựa chọn không hợp lệ! Vui lòng chọn từ 0 đến 3.");
+            }
+        } while (chon != 0); // Khi chọn 0, điều kiện chon != 0 sai -> vòng lặp kết thúc và thoát chương trình
+
+        sc.close();
     }
 }
