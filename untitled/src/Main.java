@@ -17,11 +17,10 @@ public class Main {
             System.out.println("0. Thoát (Bài 3)");
             System.out.print("Chọn chức năng: ");
 
-            // Đọc toàn bộ dòng để tránh trôi lệnh và lỗi bộ đệm
             try {
                 chon = Integer.parseInt(sc.nextLine());
             } catch (NumberFormatException e) {
-                chon = -1; // Nếu người dùng nhập chữ cái, gán giá trị không hợp lệ
+                chon = -1;
             }
 
             switch (chon) {
@@ -39,12 +38,8 @@ public class Main {
                         int sl = Integer.parseInt(sc.nextLine());
                         System.out.print("Giá: ");
                         double gia = Double.parseDouble(sc.nextLine());
-
-                        // Cộng dồn trực tiếp
                         tongSoLuong += sl;
                         tongGiaTri += (sl * gia);
-
-                        // Nối chuỗi để lưu thông tin phục vụ chức năng tìm kiếm
                         duLieuSach += "Mã: " + ma + " | Tên: " + ten + " | SL: " + sl + " | Giá: " + gia + "\n";
                     }
                     break;
@@ -73,8 +68,7 @@ public class Main {
                 default:
                     System.out.println("Lựa chọn không hợp lệ! Vui lòng chọn từ 0 đến 3.");
             }
-        } while (chon != 0); // Khi chọn 0, điều kiện chon != 0 sai -> vòng lặp kết thúc và thoát chương trình
-
+        } while (chon != 0); 
         sc.close();
     }
 }
